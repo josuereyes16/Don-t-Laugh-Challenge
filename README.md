@@ -1,7 +1,7 @@
 
 ## Josue Reyes Don't Laugh Challenge / Desafío de no reír Josue Reyes → [josuereyes16](https://github.com/josuereyes16)
 
-![image](https://github.com/user-attachments/assets/3d0805fc-fdf4-49ff-9ce7-3946c243e494)
+<img width="2824" height="1379" alt="image" src="https://github.com/user-attachments/assets/35707208-6de0-40cb-8a33-09e751583bf3" />
 
 
 | Description | Descripcion |
