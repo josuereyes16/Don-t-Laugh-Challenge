@@ -1,18 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Josue Reyes">
+    <meta name="author" content="Josue Reyes" />
+    <meta name="theme-color" content="#060d1f" />
+    <meta name="description" content="Don't Laugh Challenge - Dad Jokes" />
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
     <link rel="stylesheet" href="style.css" />
     <title>Dad Jokes</title>
   </head>
   <body>
-    <div class="container">
-      <h3>Don't Laugh Challenge</h3>
-      <div id="joke" class="joke">// Joke goes here</div>
-      <button id="jokeBtn" class="btn">Get Another Joke</button>
+
+    <!-- Animated background -->
+    <div class="bg-orbs" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
     </div>
+    <canvas class="stars-canvas" id="starsCanvas" aria-hidden="true"></canvas>
+
+    <!-- Language toggle -->
+    <button class="lang-toggle" id="langToggle" aria-label="Toggle language">
+      <span class="lang-option" data-lang="es">ES</span>
+      <span class="lang-sep">|</span>
+      <span class="lang-option" data-lang="en">EN</span>
+    </button>
+
+    <!-- Main card -->
+    <main class="container" role="main">
+      <div class="card-inner">
+        <div class="card-badge" data-i18n="badge">😂 No Laughing Allowed</div>
+        <h1 class="card-title" data-i18n="title">Don't Laugh Challenge</h1>
+        <p class="card-subtitle" data-i18n="subtitle">A fresh dad joke, just for you</p>
+
+        <div id="joke" class="joke" aria-live="polite" aria-label="Joke">
+          <span class="joke-placeholder" data-i18n="loading">Loading your joke…</span>
+        </div>
+
+        <button id="jokeBtn" class="btn" data-i18n="btn">
+          <span class="btn-icon">🎲</span>
+          <span class="btn-text">Get Another Joke</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span class="footer-name">Antonio Reyes</span>
+      <div class="footer-links">
+        <a href="https://mail.google.com/mail/?view=cm&to=inge.antonioreyes@gmail.com" class="footer-link">
+          <span>✉️</span> inge.antonioreyes@gmail.com
+        </a>
+        <span class="footer-dot">·</span>
+        <a href="https://josuereyes16.github.io/Business-card/" target="_blank" rel="noopener" class="footer-link">
+          <span>🌐</span> <span data-i18n="portfolio">Portafolio</span>
+        </a>
+      </div>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>

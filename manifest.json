@@ -1,0 +1,24 @@
+{
+  "name": "Don't Laugh Challenge",
+  "short_name": "Dad Jokes",
+  "description": "A dad joke app with a Don't Laugh Challenge",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#060d1f",
+  "background_color": "#060d1f",
+  "icons": [
+    {
+      "src": "icons/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

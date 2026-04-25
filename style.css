@@ -1,79 +1,381 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* ── Fonts ─────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap');
 
-* {
-  box-sizing: border-box;
+/* ── Variables ─────────────────────────────────────────── */
+:root {
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --bg-deep:      #060d1f;
+  --bg-mid:       #0b1530;
+  --orb-1:        rgba(30, 80, 200, 0.45);
+  --orb-2:        rgba(10, 160, 200, 0.3);
+  --orb-3:        rgba(80, 20, 180, 0.35);
+
+  --glass-bg:     rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 24px 64px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(0, 0, 0, 0.35);
+
+  --text-primary:   #f0f6ff;
+  --text-secondary: rgba(200, 220, 255, 0.6);
+  --text-muted:     rgba(160, 190, 240, 0.4);
+
+  --accent:       #4da8ff;
+  --accent-glow:  rgba(77, 168, 255, 0.35);
+  --btn-bg:       linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  --btn-hover-bg: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  --btn-shadow:   0 8px 28px rgba(37, 99, 235, 0.45);
+  --btn-active:   scale(0.97);
 }
 
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Base ──────────────────────────────────────────────── */
+html { font-size: 16px; }
+
 body {
-  background: linear-gradient(135deg, #002366, #87CEFA);
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-body);
+  font-weight: 400;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  overflow-x: hidden;
+  padding: clamp(16px, 4vw, 32px);
+  position: relative;
+}
+
+/* ── Animated background ───────────────────────────────── */
+.stars-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
   overflow: hidden;
-  margin: 0;
-  padding: 20px;
 }
 
-.container {
-  background-color: #fff;
-  border: 2px solid #000;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding: 50px 20px;
-  text-align: center;
-  max-width: 100%;
-  width: 800px;
-  animation: fadeIn 1.5s ease-in-out;
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: gentleFloat 12s ease-in-out infinite;
+  will-change: transform;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.orb-1 {
+  width: clamp(260px, 50vw, 520px);
+  height: clamp(260px, 50vw, 520px);
+  background: var(--orb-1);
+  top: -10%;
+  left: -10%;
+  animation-delay: 0s;
 }
 
-h3 {
-  margin: 0;
-  opacity: 0.5;
-  letter-spacing: 2px;
+.orb-2 {
+  width: clamp(200px, 40vw, 420px);
+  height: clamp(200px, 40vw, 420px);
+  background: var(--orb-2);
+  bottom: -8%;
+  right: -8%;
+  animation-delay: -4s;
+  animation-duration: 15s;
 }
 
-.joke {
-  font-size: 30px;
-  letter-spacing: 1px;
-  line-height: 40px;
-  margin: 50px auto;
-  max-width: 600px;
+.orb-3 {
+  width: clamp(180px, 35vw, 350px);
+  height: clamp(180px, 35vw, 350px);
+  background: var(--orb-3);
+  top: 40%;
+  left: 55%;
+  animation-delay: -8s;
+  animation-duration: 18s;
 }
 
-.btn {
-  background-color: #0400ff;
-  color: #fff;
-  border: 0;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
-  padding: 14px 40px;
-  font-size: 16px;
+@keyframes gentleFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(3%, 4%) scale(1.04); }
+  66%       { transform: translate(-2%, -3%) scale(0.97); }
+}
+
+/* ── Language toggle ───────────────────────────────────── */
+.lang-toggle {
+  position: fixed;
+  top: clamp(12px, 2.5vw, 20px);
+  right: clamp(12px, 2.5vw, 20px);
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 100px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+
+.lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: var(--text-primary);
+}
+
+.lang-option {
+  transition: color 0.2s;
+}
+
+.lang-option.active {
+  color: var(--accent);
+}
+
+.lang-sep {
+  opacity: 0.3;
+}
+
+/* ── Main container / card ─────────────────────────────── */
+.container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: min(780px, 100%);
+  animation: slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-inner {
+  background: rgba(231, 231, 231, 0.07);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: clamp(16px, 3vw, 28px);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.12);
+  padding: clamp(28px, 6vw, 56px) clamp(20px, 5vw, 48px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 3vw, 24px);
+}
+
+/* ── Card badge ────────────────────────────────────────── */
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgb(255, 255, 255);
+  border: 3px solid rgba(77, 168, 255, 0.22);
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
+  font-weight: 500;
+  color: #060d1f;
+  letter-spacing: 0.04em;
+  animation: slideUp 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Card title ────────────────────────────────────────── */
+.card-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: slideUp 0.7s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Card subtitle ─────────────────────────────────────── */
+.card-subtitle {
+  font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+  font-weight: 300;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin-top: -8px;
+  animation: slideUp 0.7s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Joke display ──────────────────────────────────────── */
+.joke {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 3.5vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: #060d1f;
+  letter-spacing: 0.01em;
+  word-break: break-word;
+  min-width: 0;
+  max-width: 620px;
+  width: 100%;
+  padding: clamp(20px, 4vw, 32px) clamp(16px, 3vw, 28px);
+  background: rgb(233, 233, 233);
+  border: 3px solid  rgba(77, 168, 255, 0.22);
+  border-radius: clamp(12px, 2vw, 18px);
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideUp 0.7s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: opacity 0.3s ease;
+}
+
+.joke.loading {
+  opacity: 0.4;
+}
+
+.joke-placeholder {
+  color: var(--text-muted);
+  font-size: 0.95em;
+  font-style: italic;
+}
+
+/* ── Button ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--btn-bg);
+  color: #fff;
+  border: 1px solid var(--btn-border);
+  border-radius: clamp(10px, 2vw, 14px);
+  box-shadow: var(--btn-shadow);
+  padding: clamp(12px, 2.5vw, 15px) clamp(28px, 5vw, 44px);
+  font-family: var(--font-display);
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+  animation: slideUp 0.7s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  min-width: 0;
 }
 
 .btn:hover {
-  background-color: #0000b3;
+  background: var(--btn-hover-bg);
+  box-shadow: 0 12px 36px rgba(37, 99, 235, 0.6); 
 }
 
 .btn:active {
-  transform: scale(0.98);
+  transform: var(--btn-active);
 }
 
-.btn:focus {
-  outline: 0;
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.btn-icon {
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+/* ── Joke fade-in animation ────────────────────────────── */
+@keyframes jokeReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.joke.revealed {
+  animation: jokeReveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Footer ────────────────────────────────────────────── */
+.footer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  margin-top: 20px;
+  padding: 0 16px 32px;
+}
+
+.footer-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  transition: color 0.22s ease;
+}
+
+.footer-link:hover { color: rgb(255, 255, 255); }
+
+.footer-dot {
+  color: rgb(255, 255, 255);
+  font-size: 0.75rem;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .card-inner {
+    padding: 22px 14px;
+    gap: 14px;
+  }
+  .joke {
+    font-size: 0.95rem;
+    padding: 16px 12px;
+    min-height: 90px;
+  }
+  .btn {
+    padding: 11px 22px;
+    font-size: 0.82rem;
+  }
+}
+
+/* Tablets */
+@media (min-width: 480px) {
+  .card-inner { padding: 40px 36px; }
+}
+
+/* Desktop */
+@media (min-width: 640px) {
+  .card-inner { padding: 52px 52px; }
 }
